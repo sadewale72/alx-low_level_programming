@@ -2,28 +2,26 @@
 #include<time.h>
 #include<stdio.h>
 /**
- * main - entry point
+ * main - Entry point
  *
- * Return: always return 0
+ * Return: Always 0 (Success/correct)
  */
 int main(void)
 {
 int n;
 srand(time(0));
 n = rand() - RAND_MAX / 2;
-printf("Last digit of %d is ", n);
-if (n > 5)
+if (n % 10 > 5)
 {
-printf("greater than 5");
+printf("Last digit of %i is %i and is greater than 5\n", n, n % 10);
 }
-if (n == 0)
+else if (n % 10 == 0)
 {
-printf("0");
+printf("Last digit of %i is %i and is 0\n", n, n % 10);
 }
-if (n < 6 && n != 0)
+else
 {
-printf("less than 6 not 0");
+printf("Last digit of %i is %i and is less than 6 and not 0\n", n, n % 10);
 }
-printf("\n");
 return (0);
 }
