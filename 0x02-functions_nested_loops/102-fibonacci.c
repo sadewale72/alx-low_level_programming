@@ -15,6 +15,7 @@ printf("%ld", a);
 if (i < 49)
 {
 b += a;
+a = b - a;
 printf(", ");
 }
 }
