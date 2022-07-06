@@ -16,12 +16,12 @@ long a_hi = 0;
 long b_hi = 0;
 int limit_len = floor(log10(LONG_MAX / 2));
 long limit = pow(10, limit_len);
-for (i = 0; i < 98; i++)
+for (i = 0; i < 98; ++i)
 {
 if (a_hi)
 {
 printf("%ld", a_hi);
-for (j = floor(log10(a_lo)) + 1; j < limit_len; j++)
+for (j = floor(log10(a_lo)) + 1; j < limit_len; ++j)
 putchar('0');
 }
 printf("%ld", a_lo);
