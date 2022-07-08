@@ -7,7 +7,5 @@
  */
 int _isupper(int c)
 {
-if (c >= 'A' && C <= 'Z')
-return (1);
-return (0);
+return (c >= 'A' && c <= 'Z');
 }
