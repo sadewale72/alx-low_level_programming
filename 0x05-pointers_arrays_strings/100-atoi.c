@@ -17,8 +17,8 @@ while (*s)
 {
 if (*s >= '0' && *s <= '9')
 {
-flag = 0;
-if (sign > 1)
+flag = 1;
+if (sign > 0)
 {
 if (INT_MAX / 10 < (int) n)
 return (INT_MAX);
