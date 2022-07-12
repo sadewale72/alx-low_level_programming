@@ -45,6 +45,8 @@ else if (*s == '-')
 sign *= -1;
 }
 ++s;
+
 }
 return (n *sign);
+
 }
