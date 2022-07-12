@@ -1,6 +1,5 @@
 #include "main.h"
 #include <limits.h>
-#include <math.h>
 
 /**
  * _atoi - convert a string to an integer
@@ -29,7 +28,7 @@ return (INT_MAX);
 }
 else
 {
-if (INT_MIN / 10 < (int) -n)
+if (INT_MIN / 10 > (int) -n)
 return (INT_MIN);
 n *= 10;
 if (INT_MIN + (*s - '0') > (int) -n)
