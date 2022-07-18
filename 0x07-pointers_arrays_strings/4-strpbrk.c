@@ -16,8 +16,9 @@ while (*s)
 {
 while (*accept)
 {
-if (*s == *accept_pos)
+if (*accept == *s)
 return (s);
+accept++;
 }
 accept = start;
 s++;
