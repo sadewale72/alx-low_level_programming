@@ -1,4 +1,5 @@
 #include "lists.h"
+#include <stdio.h>
 
 /**
  * add_nodeptr - add an element at the beginning of a list of pointers
