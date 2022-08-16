@@ -1,45 +1,70 @@
-#include <stdio.h>
 #include "lists.h"
-#include <stdlib.h>
 
 /**
- * free_listint_safe - A function that frees a list
- * @h: A pointer listint_t structure
- * Return: The size of the list that was free'd
+ * find_listint_loop - find the beginning of a loop in a linked list
+ * @head: a pointer to the first node
+ *
+ * Return: a pointer to first node in the loop, or NULL if no loop exists
  */
-size_t free_listint_safe(listint_t **h)
+listint_t *find_listint_loop(listint_t *head)
 {
-size_t counter = 0;
-listint_t *temp;
+listint_t *slow = head ? head->next : NULL, *fast = slow;
 
-temp = *h;
-while (temp)
+if (fast)
 {
-temp = *h;
-temp = temp->next;
-free_list(temp);
-counter++;
+fast = fast->next;
+while (fast && fast != slow && (fast = fast->next))
+{
+fast = fast->next;
+slow = slow->next;
 }
-*h = NULL;
-
-return (counter);
+if (fast)
+{
+while (fast != head)
+{
+fast = fast->next;
+head = head->next;
+}
+}
+}
+return (fast);
 }
 
 /**
- * free_list - A function that frees a listint_t recursively
- * @head: A pointer to the listint_t structure
- * Return: Nothing
+ * _find_listint_loop - find the beginning of a loop (helper function)
+ * @head: a pointer to a pointer to the first node
+ * @link: a pointer to a pointer to the current node
+ *
+ * Return: a pointer to first node in the loop, or NULL if no loop exists
+ *
+ *listint_t *_find_listint_loop(listint_t *head, listint_t **link)
+ *{
+ *	listint_t *current = *link;
+ *
+ *	if (!current)
+ *	return (NULL);
+ *
+ *	*link = NULL;
+ *
+ *	if (is_linked(head, current))
+ *	{
+ *	*link = current;
+ *	return (current);
+ *	}
+ *
+ *	*link = current;
+ *	return (_find_listint_loop(head, &current->next));
+ *}
+ * find_listint_loop - find the beginning of a loop in a linked list
+ * @head: a pointer to the first node
+ *
+ * return: a pointer to first node in the loop, or NULL if no loop exists
+ *
+ *listint_t *find_listint_loop(listint_t *head)
+ *{
+ *	if (!head)
+ *	return (NULL);
+ *
+ *	return (_find_listint_loop(head, &head->next));
+ *}
  */
-void free_list(listint_t *head)
-{
-listint_t *temp;
-
-if (head)
-{
-temp = head;
-temp = temp->next;
-free(temp);
-free_list(temp);
-}
-free(head);
-}
