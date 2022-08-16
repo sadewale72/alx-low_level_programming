@@ -1,70 +1,43 @@
 #include "lists.h"
 
 /**
- * find_listint_loop - find the beginning of a loop in a linked list
+ * free_listint_safe - free all elements in a linked list
  * @head: a pointer to the first node
  *
- * Return: a pointer to first node in the loop, or NULL if no loop exists
+ * Description: This function frees each node in a linked list, stopping if
+ * it encounters a loop. To identify a loop, it constructs it's own list,
+ * and if memory allocation fails, it causes the process to terminate with
+ * the status value 98
+ *
+ * Return: the size of the list that was freed
  */
-listint_t *find_listint_loop(listint_t *head)
+size_t free_listint_safe(listint_t **head)
 {
-listint_t *slow = head ? head->next : NULL, *fast = slow;
+listptr_t *listptr_head = NULL;
+listint_t *next;
+size_t size;
 
-if (fast)
-{
-fast = fast->next;
-while (fast && fast != slow && (fast = fast->next))
-{
-fast = fast->next;
-slow = slow->next;
-}
-if (fast)
-{
-while (fast != head)
-{
-fast = fast->next;
-head = head->next;
-}
-}
-}
-return (fast);
-}
+if (!head)
+return (0);
 
-/**
- * _find_listint_loop - find the beginning of a loop (helper function)
- * @head: a pointer to a pointer to the first node
- * @link: a pointer to a pointer to the current node
- *
- * Return: a pointer to first node in the loop, or NULL if no loop exists
- *
- *listint_t *_find_listint_loop(listint_t *head, listint_t **link)
- *{
- *	listint_t *current = *link;
- *
- *	if (!current)
- *	return (NULL);
- *
- *	*link = NULL;
- *
- *	if (is_linked(head, current))
- *	{
- *	*link = current;
- *	return (current);
- *	}
- *
- *	*link = current;
- *	return (_find_listint_loop(head, &current->next));
- *}
- * find_listint_loop - find the beginning of a loop in a linked list
- * @head: a pointer to the first node
- *
- * return: a pointer to first node in the loop, or NULL if no loop exists
- *
- *listint_t *find_listint_loop(listint_t *head)
- *{
- *	if (!head)
- *	return (NULL);
- *
- *	return (_find_listint_loop(head, &head->next));
- *}
- */
+for (size = 0; *head; ++size)
+{
+if (listptr_contains(listptr_head, *head))
+{
+*head = NULL;
+break;
+}
+if (!add_nodeptr(&listptr_head, *head))
+{
+free_listptr(listptr_head);
+exit(98);
+}
+next = (*head)->next;
+free(*head);
+*head = next;
+
+}
+free_listptr(listptr_head);
+
+return (size);
+}
