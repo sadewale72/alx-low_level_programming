@@ -1,6 +1,6 @@
 # Makefile for school, version 0.2
 
-NAME = holberton
+NAME = school
 
 CC = gcc
 SRC = school.c main.c
